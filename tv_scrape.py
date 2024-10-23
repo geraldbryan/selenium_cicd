@@ -12,6 +12,8 @@ from supabase import create_client
 import pandas as pd
 from dotenv import load_dotenv
 
+from pyvirtualdisplay import Display
+
 def clean_value(value):
     # Remove Unicode control characters using regex
     cleaned_value = re.sub(r'[\u202a\u202c\u202f]', '', value)
@@ -185,15 +187,32 @@ active_stock = pd.DataFrame(active_stock.data)
 active_stock[['symbol','index']] = active_stock["symbol"].str.split('.',expand=True)
 
 # Initiate Selenium
-cService = webdriver.ChromeService(executable_path='./chromedriver')
-driver = webdriver.Chrome(service = cService)
+# cService = webdriver.ChromeService(executable_path='./chromedriver')
+# driver = webdriver.Chrome(service = cService)
+
+display = Display(visible=0, size=(1200, 1200))  
+display.start()
+
+chrome_options = webdriver.ChromeOptions()    
+# Add your options as needed    
+options = [
+  # Define window size here
+   "--window-size=1200,1200",
+    "--ignore-certificate-errors"
+]
+
+for option in options:
+    chrome_options.add_argument(option)
+
+    
+driver = webdriver.Chrome(service=Service(), options=chrome_options)
 
 driver.maximize_window()
 
 # Start Scraping
 df_fore = pd.DataFrame()
 
-for i in range(0,active_stock.shape[0]):
+for i in range(0,5):
     symbol = active_stock.symbol.iloc[i]
     url = f"https://www.tradingview.com/symbols/IDX-{symbol}/forecast/"
 
