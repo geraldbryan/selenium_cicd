@@ -181,7 +181,7 @@ print(url)
 key = os.environ.get("SUPABASE_KEY")
 print(key)
 
-# supabase = create_client(url, key)
+supabase = create_client(url, key)
 
 # get active stock data
 active_stock = supabase.table("idx_active_company_profile").select("symbol").execute()
