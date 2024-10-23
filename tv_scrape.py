@@ -177,8 +177,11 @@ def get_revenue(driver):
 # Get supabase connection
 load_dotenv()
 url = os.environ.get("SUPABASE_URL")
+print(url)
 key = os.environ.get("SUPABASE_KEY")
-supabase = create_client(url, key)
+print(key)
+
+# supabase = create_client(url, key)
 
 # get active stock data
 active_stock = supabase.table("idx_active_company_profile").select("symbol").execute()
