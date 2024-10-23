@@ -216,7 +216,9 @@ driver.maximize_window()
 # Start Scraping
 df_fore = pd.DataFrame()
 
-for i in range(0,5):
+active_stock = active_stock[active_stock.symbol.isin(['BBCA','BMRI','ICBP','TPIA','CPIN'])
+
+for i in range(0,active_stock.shape[0]):
     symbol = active_stock.symbol.iloc[i]
     url = f"https://www.tradingview.com/symbols/IDX-{symbol}/forecast/"
 
