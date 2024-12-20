@@ -1,9 +1,6 @@
 name: Update subsector description monthly
 
 on:
-  schedule:
-    - cron: '* * 20 * *'
-  
   workflow_dispatch:
       
 
